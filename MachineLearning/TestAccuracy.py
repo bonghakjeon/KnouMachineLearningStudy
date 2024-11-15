@@ -50,7 +50,8 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 
 # 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html
 plt.figure()   
 
-# 함수 plt.imshow - 데이터를 2D 래스터 이미지로 표시
+# 함수 plt.imshow - 데이터를 2D 래스터 이미지로 표시(원하는 사이즈의 픽셀을 원하는 색으로 채워서 그림 만들기)
+# 참고 URL - https://pyvisuall.tistory.com/78
 plt.imshow(train_images[111]) 
 
 # 함수 plt.colorbar() - 그래프 옆에 Color Bar 추가 
@@ -64,11 +65,11 @@ plt.grid(True)
 # 함수 plt.figure() - 새 그림을 만들거나 기존 그림 활성화
 plt.figure(figsize=(10,10))
 for i in range(25):
-    ----- plt.subplot(5,5,i+1)
-    ----- plt.xticks([])
-    ----- plt.yticks([])
-    ----- plt.imshow(train_images[i], cmap=plt.cm.binary)
-    ----- plt.xlabel(class_names[train_labels[i]])
+    plt.subplot(5,5,i+1)   # 현재 그림에 축을 추가하거나 기존 축 검색 / 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot.html
+    plt.xticks([])   # xticks 비활성화 / 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html
+    plt.yticks([])   # # yticks 비활성화 / 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.yticks.html
+    plt.imshow(train_images[i], cmap=plt.cm.binary)   # 함수 plt.imshow - 데이터를 2D 래스터 이미지로 표시(원하는 사이즈의 픽셀을 원하는 색으로 채워서 그림 만들기)
+    plt.xlabel(class_names[train_labels[i]]) # X축의 label 설정 / 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html
 
 plt.show() # 데이터 시각화 하기 위해 화면 출력 
 
@@ -77,23 +78,28 @@ train_images = train_images / 255.0
 test_images = test_images / 255.0
 
 # 4 단계 - 모델 구성
-model = Sequential()
-model.add(keras.Input(shape=(28, 28)))       # 입력 데이터의 형태 지정
-model.add(keras.layers.Reshape((28 * 28,)))  # 입력 데이터를 1차원 벡터로 변환
-model.add(Dense(128, activation='relu'))     # 은닉층 추가(노드 수 128개, ReLU 활성화 함수)
-model.add(Dense(64, activation='relu'))      # 은닉층 추가(노드 수 64개, ReLU 활성화 함수)
-model.add(Dense(10, activation='softmax'))   # 출력층 추가(10개의 클래스 분류, 활성화 함수 softmax)
-model.summary()
+# 참고 URL - https://wikidocs.net/192931
+seqModel = Sequential() # Sequential 클래스 데이터 모델 객체 seqModel 생성 / 참고 URL - https://www.tensorflow.org/guide/keras/sequential_model?hl=ko
+seqModel.add(keras.Input(shape=(28, 28)))       # 입력 데이터 형태 지정
+seqModel.add(keras.layers.Reshape((28 * 28,)))  # 입력 데이터 -> 1차원 벡터 변환
+seqModel.add(Dense(128, activation='relu'))     # 은닉층 추가(노드 수 128개, ReLU 활성화 함수)
+seqModel.add(Dense(64, activation='relu'))      # 은닉층 추가(노드 수 64개, ReLU 활성화 함수)
+seqModel.add(Dense(10, activation='softmax'))   # 출력층 추가(10개의 클래스 분류, 활성화 함수 softmax)
+seqModel.summary() # # 모델의 구조를 간략하게 요약하여 보기
 
 # 5 단계 - 모델 컴파일 + 학습
-model.compile(optimizer='adam',
+# 참고 URL - https://blog.naver.com/handuelly/221822938182
+# 모델 구성 완료 후 compile() 메서드를 호출해서 모델 학습 과정 설정(모델을 빌드하고 실행하기 전에 컴파일 하는 훈련 준비 단계)
+seqModel.compile(optimizer='adam',
                 loss='sparse_categorical_crossentropy',
                 metrics=['accuracy'])
-model.fit(train_images, train_labels, epochs=10, batch_size=64, verbose=1)
+# 모델 학습 과정 설정 완료 후 fit() 메서드 호출해서 주어진 epoch 수 만큼 모델 학습 진행 (epoch 수 만큼 전체 입력 데이터 순회)
+seqModel.fit(train_images, train_labels, epochs=10, batch_size=64, verbose=1)
 
 # 6 단계 - 모델 테스트
-test_loss, test_acc = model.evaluate(test_images, test_labels)
+# 참고 URL - https://velog.io/@ksolar03/%EB%94%A5%EB%9F%AC%EB%8B%9D-tf.keras-%EC%A3%BC%EC%9A%94-%EB%AA%A8%EB%93%88-%EC%A0%95%EB%A6%AC
+test_loss, test_acc = seqModel.evaluate(test_images, test_labels)  # 성능 확인 
 print('Test accuracy:', test_acc)
-predictions = model.predict(test_images)
+predictions = seqModel.predict(test_images) # 예측 
 print(predictions[0])
 print(np.argmax(predictions[0]))
