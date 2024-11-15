@@ -71,6 +71,8 @@ for i in range(25):
     plt.imshow(train_images[i], cmap=plt.cm.binary)   # 함수 plt.imshow - 데이터를 2D 래스터 이미지로 표시(원하는 사이즈의 픽셀을 원하는 색으로 채워서 그림 만들기)
     plt.xlabel(class_names[train_labels[i]]) # X축의 label 설정 / 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html
 
+# TODO : 아래 주석친 코드 "plt.show()" 주석 해제해야 화면이 출력되고
+#        만약 주석 처리를 하게 되면 화면은 출력 되지 않고 아래 터미널 창에서 모델 컴파일/학습/테스트 결과가 출력 된다. 
 plt.show() # 데이터 시각화 하기 위해 화면 출력 
 
 # 3 단계 - 데이터 스케일링
