@@ -9,11 +9,11 @@
 # 참고 3 URL - https://wikidocs.net/227412
 
 # TODO : VSCode 에디터에서 패키지 numpy 버전 1.26.0 설치시 오류 메시지 "ERROR: Could not install packages due to an OSError: [WinError 2] 지정된 파일을 찾을 수 없습니다: 'C:\\Python312\\Scripts\\f2py.exe' -> 'C:\\Python312\\Scripts\\f2py.exe.deleteme'"
-#        출력 원인 파악 및 해당 오류 해결하기 위해 명령어 "pip install numpy==1.26.0 --user" 를 사용하여 특별한 권한 없이 패키지 numpy 버전 1.26.0를 설치 진행 (2024.11.12 jbh)
+#        출력 원인 파악 및 해당 오류 해결하기 위해 터미널 명령어 "pip install numpy==1.26.0 --user" 를 사용하여 특별한 권한 없이 패키지 numpy 버전 1.26.0를 설치 진행 (2024.11.12 jbh)
 # 참고 URL - https://stackoverflow.com/questions/66322049/could-not-install-packages-due-to-an-oserror-winerror-2-no-such-file-or-direc
 
 # TODO : VSCode 에디터에서 패키지 tensorflow 설치시 오류 메시지 "ERROR: Could not install packages due to an OSError: [WinError 2] 지정된 파일을 찾을 수 없습니다: 'C:\\Python312\\Scripts\\wheel.exe' -> 'C:\\Python312\\Scripts\\wheel.exe.deleteme'"
-#        출력 원인 파악 및 해당 오류 해결하기 위해 명령어 "pip install tensorflow --user" 를 사용하여 특별한 권한 없이 패키지 tensorflow 설치 진행 (2024.11.12 jbh)
+#        출력 원인 파악 및 해당 오류 해결하기 위해 터미널 명령어 "pip install tensorflow --user" 를 사용하여 특별한 권한 없이 패키지 tensorflow 설치 진행 (2024.11.12 jbh)
 
 # TODO : VSCode 에디터에서 패키지 tensorflow 설치 후 패키지 import 처리 오류 메시지 "import tensorflow as tf 지정된 모듈을 찾을 수 없습니다" 해결하기 위해 
 #        VSCode 에디터 좌측 하단 톱니바퀴 모양 버튼 클릭 -> 컨텍스트 메뉴 "설정" 클릭
