@@ -1,13 +1,14 @@
 import keras
 
-# TODO : 2가지 패키지 "keras.src", "keras.api" 차이점이 무엇인지 확인하기 (2024.11.14 jbh)
-from keras.src.models.sequential import Sequential
-from keras.src.layers import Dense
-from keras.src.datasets import fashion_mnist
+# TODO : keras.src와 keras.api의 차이 확인 및 keras.api 사용 하도록 구현 (2024.11.18 jbh)
+# 참고 URL - https://chatgpt.com/c/673a6d16-e878-8011-9796-de1309d52fd7
+from keras.api.models import Sequential
+from keras.api.layers import Dense
+from keras.api.datasets import fashion_mnist
 
-# from keras.api.models import Sequential
-# from keras.api.layers import Dense
-# from keras.api.datasets import fashion_mnist
+# from keras.src.models.sequential import Sequential
+# from keras.src.layers import Dense
+# from keras.src.datasets import fashion_mnist
 
 import numpy as np 
 
@@ -16,28 +17,8 @@ import numpy as np
 # 참고 URL - https://tech.zinnunkebi.com/programming-language/python/python-modulenotfounderror-matplotlib/
 import matplotlib.pyplot as plt 
 
-# 2. 데이터 시각화에 쓰일 변수 
-A = 111
-B = 10
-C = 25
-D = 5
-
-# 3. 데이터 스케일링에 쓰일 변수 
-E = 255.0
-
-# 4. 모델 구성에 쓰일 변수 
-DENSE_A = 28
-DENSE_B = 128
-DENSE_C = 64
-DENSE_D = 10
-
-# 5. 모델 컴파일 및 학습에 쓰일 변수 
-FIT_A  = 10
-FIT_B = 64 
-FIT_C = 1
-
-# 6. 모델 테스트 
-PRE_A = 0
+print(np.__version__)      # numpy 버전 1.26.0
+print(keras.__version__)   # keras 버전 3.6.0
 
 # 1 단계 - 데이터 셋 import - Fashion MNIST 
 # 참고 URL - https://www.tensorflow.org/api_docs/python/tf/keras/datasets/fashion_mnist/load_data 
@@ -71,8 +52,11 @@ for i in range(25):
     plt.imshow(train_images[i], cmap=plt.cm.binary)   # 함수 plt.imshow - 데이터를 2D 래스터 이미지로 표시(원하는 사이즈의 픽셀을 원하는 색으로 채워서 그림 만들기)
     plt.xlabel(class_names[train_labels[i]]) # X축의 label 설정 / 참고 URL - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html
 
-# TODO : 아래 주석친 코드 "plt.show()" 주석 해제해야 화면이 출력되고
-#        만약 주석 처리를 하게 되면 화면은 출력 되지 않고 아래 터미널 창에서 모델 컴파일/학습/테스트 결과가 출력 된다. 
+# TODO : 아래 주석친 코드 "plt.show()" 주석 해제해야 
+#        화면 2개(Figure 1, Figure 2)가 출력되고 해당 화면 2개 종료(닫기 "X" 버튼 클릭)시 
+#        아래 터미널 창에서 모델 컴파일/학습/테스트 결과가 출력 된다. 
+#        만약 주석 처리를 하게 되면 화면 2개(Figure 1, Figure 2)는 출력 되지 않고 
+#        아래 터미널 창에서 모델 컴파일/학습/테스트 결과가 출력 된다. 
 plt.show() # 데이터 시각화 하기 위해 화면 출력 
 
 # 3 단계 - 데이터 스케일링
@@ -104,4 +88,7 @@ test_loss, test_acc = seqModel.evaluate(test_images, test_labels)  # 성능 확�
 print('Test accuracy:', test_acc)
 predictions = seqModel.predict(test_images) # 예측 
 print(predictions[0])
-print(np.argmax(predictions[0]))
+# 함수 np.argmax - 가장 높은 값의 인덱스 찾기
+# 참고 URL - https://numpy.org/doc/stable/reference/generated/numpy.argmax.html
+# 참고 2 URL - https://powerdeng.tistory.com/135
+print(np.argmax(predictions[0])) 
